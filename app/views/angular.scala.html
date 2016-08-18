@@ -1,0 +1,28 @@
+@(title: String)
+
+<!DOCTYPE html>
+<html lang="en" ng-app="angular">
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript">
+        angular.module('angular', [])
+        .controller('DataController', ['$scope', '$http',
+            function($scope, $http) {
+                $scope.get = function() {
+                    $http.get('/rest/get').then(function(data) {
+                        $scope.data = data;
+                    });
+                };
+            }]);
+        </script>
+    </head>
+    <body>
+        <div ng-controller="DataController">
+            <button ng-click="get()">Click Me</button>
+            <h1>{{data.data}}</h1>
+        </div>
+    </body>
+</html>
